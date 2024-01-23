@@ -1,0 +1,41 @@
+{
+    "process": {
+        "name": "gerar-faturas-Vendas-sap",
+        "identifier": "AGT011DSI",
+        "description": "Processo para gerar faturas de vendas no SAP",
+        "version": "0.0.1",
+        "execMode": "daily",
+        "execTime": "20:00"
+    },
+    "report": {
+        "to": "joselito.coutinho@cvt.cv",
+        "cc": "dsi-suporte-rpa@cvt.cv",
+        "subject": "AGT011DSI - Relatório de erro"
+    },
+    "notify": {
+        "subject": "Robô finalizado | AGT011DSI",
+        "message_body": "<p><strong>ALERTA:</strong> O Processo SAP <strong>VA02</strong> foi concluído e executado com êxito.</p><p>Atenciosamente,<br>Equipe Suporte RPA</p>",
+        "recipient_email": "dsi-suporte-rpa@cvt.cv;DSI-Support-SAP@cvt.cv"
+    },
+    "sap_app": {
+        "path": "C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe",
+        "client": "110",
+        "language": "PT",
+        "transaction_code": "VA02",
+        "env": "SAP_PRD"
+    },
+    "database": {
+        "sap": {
+            "collection": "platforms",
+            "query": {
+                "identifier": "SAP_PRD"
+            }
+        },
+        "webmail": {
+            "collection": "platforms",
+            "query": {
+                "identifier": "CVT_Webmail"
+            }
+        }
+    }
+}

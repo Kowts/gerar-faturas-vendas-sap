@@ -1,0 +1,11 @@
+{
+    "name": "gerar_fatura_vendas_sap",
+    "version": "0.0.1",
+    "description": "Example agent, please change",
+    "main": "main.py",
+    "openiap": {
+        "daemon": false,
+        "chromium": false,
+        "language": "python"
+    }
+}

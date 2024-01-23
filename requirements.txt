@@ -1,0 +1,5 @@
+keyboard==0.13.5
+openiap==0.0.32
+plyer==2.1.0
+pywin32==306
+Requests==2.31.0

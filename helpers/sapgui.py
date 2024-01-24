@@ -214,7 +214,7 @@ class SapGui():
 
 
     # Enter a command in the SAP command field, submit, and perform additional operations.
-    def perform_operation(self, command, account):
+    def perform_operation(self, command, ordem):
         """
         Performs the specified command in the SAP GUI.
 
@@ -229,6 +229,23 @@ class SapGui():
             # Set the value of the specified field and Submit the command
             self.session.findById("wnd[0]/tbar[0]/okcd").text = command
             self.session.findById("wnd[0]").sendVKey(0)
+
+            # Wait for a specific element from the new page to be present
+            element_to_wait_for = "wnd[0]/tbar[1]/btn[5]"
+
+            # Element found, now perform the operations for the new page
+            if self.wait_for_element(element_to_wait_for):
+                # Set the text
+                self.session.findById("wnd[0]/usr/ctxtVBAK-VBELN").text = "5100234350"
+
+                self.session.findById("wnd[0]/usr/ctxtVBAK-VBELN").text = "5100234350"
+                self.session.findById("wnd[0]/tbar[1]/btn[5]").press()
+                self.session.findById("wnd[1]/tbar[0]/btn[0]").press()
+                self.session.findById("wnd[0]/mbar/menu[3]/menu[13]/menu[0]/menu[0]").select()
+                self.session.findById("wnd[0]/tbar[1]/btn[5]").press()
+                self.session.findById("wnd[0]/usr/cmbNAST-VSZTP").key = "4"
+                self.session.findById("wnd[0]/tbar[0]/btn[3]").press()
+                self.session.findById("wnd[0]/tbar[0]/btn[11]").press()
 
         except Exception as e:
             logging.error(f"Error during command execution: {str(e)}")

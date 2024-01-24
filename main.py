@@ -39,21 +39,31 @@ async def main():
         # Validate the structure of the SAP data.
         if 'platform' in sap_args and 'username' in sap_args and 'password' in sap_args:
 
-            # Read Excel file
-            excel_file_path = 'resources/ListaSAP.xlsx'
-            df = pd.read_excel(excel_file_path)
+            # Call SapGui class and use its methods.
+            sap_session = SapGui(sap_args)
+            if not sap_session:
+                raise Exception("Failed to create SapGui session.")
 
-            print(df)
-            exit()
+            # Login to SAP
+            sap_result = sap_session.sapLogin()
+            if not sap_result:
+                raise Exception("SAP login failed.")
+
+            # Read Excel file
+            excel_file_path = 'resources/VendasSAP.xlsx'
+            df = pd.read_excel(excel_file_path)
 
             # Perform Verifications
             column_to_verify = 'Ordem'
             if all(df[column_to_verify] > 0):
-                print(f"All values in '{column_to_verify}' are positive.")
+                for index, row in df.iterrows():
+                    # get order number
+                    ordem = row[column_to_verify]
+                    print(f"Processing order: {ordem}")
 
-            # Perform operation in SAP
-            # process_status, text = sap_session.perform_operation(sap_transaction_code, account)
-
+                    # Perform operation in SAP
+                    process_status = sap_session.perform_operation(sap_transaction_code, ordem)
+                    input(f"Press Enter to continue...")
 
             # mail configs
             subject = notify['subject']
